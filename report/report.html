@@ -1,0 +1,559 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Api Test</title>
+    <meta name="generator" content="HTMLTestRunner 0.8.2.2"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link href="http://libs.baidu.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet">
+    <script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+    <script src="http://libs.baidu.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
+    
+<style type="text/css" media="screen">
+body        { font-family: Microsoft YaHei,Tahoma,arial,helvetica,sans-serif;padding: 20px; font-size: 80%; }
+table       { font-size: 100%; }
+/* -- heading ---------------------------------------------------------------------- */
+.heading {
+    margin-top: 0ex;
+    margin-bottom: 1ex;
+}
+.heading .description {
+    margin-top: 4ex;
+    margin-bottom: 6ex;
+}
+/* -- report ------------------------------------------------------------------------ */
+#total_row  { font-weight: bold; }
+.passCase   { color: #5cb85c; }
+.failCase   { color: #d9534f; font-weight: bold; }
+.errorCase  { color: #f0ad4e; font-weight: bold; }
+.hiddenRow  { display: none; }
+.testcase   { margin-left: 2em; }
+</style>
+
+</head>
+<body >
+<script language="javascript" type="text/javascript">
+output_list = Array();
+/*level 调整增加只显示通过用例的分类 --Findyou
+0:Summary //all hiddenRow
+1:Failed  //pt hiddenRow, ft none
+2:Pass    //pt none, ft hiddenRow
+3:All     //pt none, ft none
+*/
+function showCase(level) {
+    trs = document.getElementsByTagName("tr");
+    for (var i = 0; i < trs.length; i++) {
+        tr = trs[i];
+        id = tr.id;
+        if (id.substr(0,2) == 'ft') {
+            if (level == 2 || level == 0 ) {
+                tr.className = 'hiddenRow';
+            }
+            else {
+                tr.className = '';
+            }
+        }
+        if (id.substr(0,2) == 'pt') {
+            if (level < 2) {
+                tr.className = 'hiddenRow';
+            }
+            else {
+                tr.className = '';
+            }
+        }
+    }
+    //加入【详细】切换文字变化 --Findyou
+    detail_class=document.getElementsByClassName('detail');
+	//console.log(detail_class.length)
+	if (level == 3) {
+		for (var i = 0; i < detail_class.length; i++){
+			detail_class[i].innerHTML="收起"
+		}
+	}
+	else{
+			for (var i = 0; i < detail_class.length; i++){
+			detail_class[i].innerHTML="详细"
+		}
+	}
+}
+function showClassDetail(cid, count) {
+    var id_list = Array(count);
+    var toHide = 1;
+    for (var i = 0; i < count; i++) {
+        //ID修改 点 为 下划线 -Findyou
+        tid0 = 't' + cid.substr(1) + '_' + (i+1);
+        tid = 'f' + tid0;
+        tr = document.getElementById(tid);
+        if (!tr) {
+            tid = 'p' + tid0;
+            tr = document.getElementById(tid);
+        }
+        id_list[i] = tid;
+        if (tr.className) {
+            toHide = 0;
+        }
+    }
+    for (var i = 0; i < count; i++) {
+        tid = id_list[i];
+        //修改点击无法收起的BUG，加入【详细】切换文字变化 --Findyou
+        if (toHide) {
+            document.getElementById(tid).className = 'hiddenRow';
+            document.getElementById(cid).innerText = "详细"
+        }
+        else {
+            document.getElementById(tid).className = '';
+            document.getElementById(cid).innerText = "收起"
+        }
+    }
+}
+function html_escape(s) {
+    s = s.replace(/&/g,'&amp;');
+    s = s.replace(/</g,'&lt;');
+    s = s.replace(/>/g,'&gt;');
+    return s;
+}
+</script>
+<div class='heading'>
+<h1 style="font-family: Microsoft YaHei">Api Test</h1>
+<p class='attribute'><strong>测试人员 : </strong> 大鹏</p>
+<p class='attribute'><strong>开始时间 : </strong> 2021-01-26 17:47:06</p>
+<p class='attribute'><strong>合计耗时 : </strong> 0:00:00.815763</p>
+<p class='attribute'><strong>测试结果 : </strong> 共 8，通过 8，通过率= 100.00%</p>
+
+<p class='description'>全员自动化1期api测试</p>
+</div>
+
+
+<p id='show_detail_line'>
+<a class="btn btn-primary" href='javascript:showCase(0)'>概要{ 100.00% }</a>
+<a class="btn btn-danger" href='javascript:showCase(1)'>失败{ 0 }</a>
+<a class="btn btn-success" href='javascript:showCase(2)'>通过{ 8 }</a>
+<a class="btn btn-info" href='javascript:showCase(3)'>所有{ 8 }</a>
+</p>
+<table id='result_table' class="table table-condensed table-bordered table-hover">
+<colgroup>
+<col align='left' />
+<col align='right' />
+<col align='right' />
+<col align='right' />
+<col align='right' />
+<col align='right' />
+</colgroup>
+<tr id='header_row' class="text-center success" style="font-weight: bold;font-size: 14px;">
+    <td>用例集/测试用例</td>
+    <td>总计</td>
+    <td>通过</td>
+    <td>失败</td>
+    <td>错误</td>
+    <td>详细</td>
+</tr>
+
+<tr class='passClass warning'>
+    <td>test_api_case.register</td>
+    <td class="text-center">6</td>
+    <td class="text-center">6</td>
+    <td class="text-center">0</td>
+    <td class="text-center">0</td>
+    <td class="text-center"><a href="javascript:showClassDetail('c1',6)" class="detail" id='c1'>详细</a></td>
+</tr>
+
+<tr id='pt1_1' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_001case</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_pt1_1' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_pt1_1'>通过</button>
+    <div id='div_pt1_1' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_pt1_1' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_pt1_1'>通过</button>
+    <div id='div_pt1_1' class="collapse in">
+    <pre>
+    
+pt1_1: 注册量/率
+{
+  "code": 200,
+  "message": "OK",
+  "result": {
+    "page": 1,
+    "total": 1,
+    "rows": [
+      {
+        "total_reg": 25140.0,
+        "total_in_job_reg": 25140.0,
+        "total_rate": 38.68,
+        "comp_reg": 12716.0,
+        "comp_in_job_reg": 12716.0,
+        "comp_rate": 37.4,
+        "dis_reg": 12424.0,
+        "dis_in_job_reg": 12424.0,
+        "dis_rate": 40.08
+      }
+    ]
+  }
+}
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='pt1_2' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_002case_1___2021_01_16____2021_01_23__</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_pt1_2' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_pt1_2'>通过</button>
+    <div id='div_pt1_2' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_pt1_2' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_pt1_2'>通过</button>
+    <div id='div_pt1_2' class="collapse in">
+    <pre>
+    
+pt1_2: 增长量/率
+=========================
+http://marketing-data-test.paas.gwm.cn/phqyyxapi/api/operation_analysistotal_register?start_time=2021-01-16&amp;end_time=2021-01-23
+=========================
+{
+  "code": 200,
+  "message": "OK",
+  "result": {
+    "total": {
+      "inc_num": 36,
+      "total_sum": 36,
+      "total_rate": 0.14
+    },
+    "company": {
+      "inc_num": 22,
+      "company_sum": 22,
+      "company_rate": 0.17
+    },
+    "agent": {
+      "inc_num": 14,
+      "agent_sum": 14,
+      "agent_rate": 0.11
+    }
+  }
+}
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='pt1_3' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_003case</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_pt1_3' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_pt1_3'>通过</button>
+    <div id='div_pt1_3' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_pt1_3' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_pt1_3'>通过</button>
+    <div id='div_pt1_3' class="collapse in">
+    <pre>
+    
+pt1_3: 媒体统计
+{
+  "code": 200,
+  "message": "OK",
+  "result": {
+    "page": 1,
+    "total": 1,
+    "rows": [
+      {
+        "id": 5244,
+        "site_name": "腾讯",
+        "ftime": "20210125",
+        "reg_num": 1,
+        "site_id": 20
+      },
+      {
+        "id": 5248,
+        "site_name": "太平洋汽车",
+        "ftime": "20210125",
+        "reg_num": 1,
+        "site_id": 34
+      },
+      {
+        "id": 5243,
+        "site_name": "搜狐",
+        "ftime": "20210125",
+        "reg_num": 2,
+        "site_id": 19
+      },
+      {
+        "id": 5253,
+        "site_name": "趣头条",
+        "ftime": "20210125",
+        "reg_num": 2,
+        "site_id": 119
+      },
+      {
+        "id": 5251,
+        "site_name": "百家号",
+        "ftime": "20210125",
+        "reg_num": 8,
+        "site_id": 18
+      },
+      {
+        "id": 5252,
+        "site_name": "微博号",
+        "ftime": "20210125",
+        "reg_num": 46,
+        "site_id": 38
+      },
+      {
+        "id": 5247,
+        "site_name": "微信公众号",
+        "ftime": "20210125",
+        "reg_num": 301,
+        "site_id": 36
+      },
+      {
+        "id": 5246,
+        "site_name": "今日头条_微头条号",
+        "ftime": "20210125",
+        "reg_num": 458,
+        "site_id": 37
+      },
+      {
+        "id": 5245,
+        "site_name": "今日头条_头条号",
+        "ftime": "20210125",
+        "reg_num": 464,
+        "site_id": 16
+      },
+      {
+        "id": 5241,
+        "site_name": "爱卡",
+        "ftime": "20210125",
+        "reg_num": 1000,
+        "site_id": 33
+      },
+      {
+        "id": 5249,
+        "site_name": "易车网",
+        "ftime": "20210125",
+        "reg_num": 10817,
+        "site_id": 32
+      },
+      {
+        "id": 5250,
+        "site_name": "抖音",
+        "ftime": "20210125",
+        "reg_num": 35821,
+        "site_id": 26
+      },
+      {
+        "id": 5242,
+        "site_name": "微信朋友圈",
+        "ftime": "20210125",
+        "reg_num": 84544,
+        "site_id": 35
+      }
+    ]
+  }
+}
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='pt1_4' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_004case</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_pt1_4' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_pt1_4'>通过</button>
+    <div id='div_pt1_4' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_pt1_4' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_pt1_4'>通过</button>
+    <div id='div_pt1_4' class="collapse in">
+    <pre>
+    
+pt1_4: 综合榜
+{
+  "code": 200,
+  "message": "OK",
+  "result": {
+    "asc_company": [
+      {
+        "dept_name": "标准化二级部门名称集团97",
+        "p_name": "标准化一级部门名称集团17",
+        "register_sum": 172,
+        "register_rate": 17.2
+      }
+    ],
+    "desc_company": [
+      {
+        "dept_name": "标准化二级部门名称集团97",
+        "p_name": "标准化一级部门名称集团17",
+        "register_sum": 172,
+        "register_rate": 17.2
+      }
+    ],
+    "asc_agent": [
+      {
+        "dept_name": "标准化二级部门名称经销商80",
+        "p_name": "标准化一级部门名称经销商98",
+        "register_sum": 348,
+        "register_rate": 34.8
+      }
+    ],
+    "desc_agent": [
+      {
+        "dept_name": "标准化二级部门名称经销商80",
+        "p_name": "标准化一级部门名称经销商98",
+        "register_sum": 348,
+        "register_rate": 34.8
+      }
+    ]
+  }
+}
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='pt1_5' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_005case_1___2021_01_15____2021_01_22__</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_pt1_5' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_pt1_5'>通过</button>
+    <div id='div_pt1_5' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_pt1_5' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_pt1_5'>通过</button>
+    <div id='div_pt1_5' class="collapse in">
+    <pre>
+    
+pt1_5: 增长榜
+{
+  "code": 200,
+  "message": "OK",
+  "result": {
+    "asc_company": [],
+    "desc_company": [],
+    "asc_agent": [],
+    "desc_agent": []
+  }
+}
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='pt1_6' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_006case_1___2021_01_15____2020_01_22__</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_pt1_6' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_pt1_6'>通过</button>
+    <div id='div_pt1_6' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_pt1_6' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_pt1_6'>通过</button>
+    <div id='div_pt1_6' class="collapse in">
+    <pre>
+    
+pt1_6: 综合趋势图
+{
+  "code": 200,
+  "message": "OK",
+  "result": {
+    "page": 1,
+    "total": 1,
+    "rows": []
+  }
+}
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr class='passClass warning'>
+    <td>test_api_case2.register</td>
+    <td class="text-center">2</td>
+    <td class="text-center">2</td>
+    <td class="text-center">0</td>
+    <td class="text-center">0</td>
+    <td class="text-center"><a href="javascript:showClassDetail('c2',2)" class="detail" id='c2'>详细</a></td>
+</tr>
+
+<tr id='pt2_1' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_001case</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_pt2_1' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_pt2_1'>通过</button>
+    <div id='div_pt2_1' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_pt2_1' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_pt2_1'>通过</button>
+    <div id='div_pt2_1' class="collapse in">
+    <pre>
+    
+pt2_1: 注册量/率
+{
+  "code": 200,
+  "message": "OK",
+  "result": {
+    "page": 1,
+    "total": 0,
+    "rows": []
+  }
+}
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='pt2_2' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_002case</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_pt2_2' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_pt2_2'>通过</button>
+    <div id='div_pt2_2' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_pt2_2' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_pt2_2'>通过</button>
+    <div id='div_pt2_2' class="collapse in">
+    <pre>
+    
+pt2_2: {
+  "code": 200,
+  "message": "OK",
+  "result": {
+    "page": 1,
+    "total": 1,
+    "rows": [
+      "http://b0d90ca18b4da7ef.test.paas.gwm.cn/api/v1/user/5f4981b0f9990598/bucket/datamarketingfile/file/注册分析详情2021-01-26 09:46:54.xls"
+    ]
+  }
+}
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='total_row' class="text-center active">
+    <td>总计</td>
+    <td>8</td>
+    <td>8</td>
+    <td>0</td>
+    <td>0</td>
+    <td>通过率：100.00%</td>
+</tr>
+</table>
+
+<div id='ending'>&nbsp;</div>
+    <div style=" position:fixed;right:50px; bottom:30px; width:20px; height:20px;cursor:pointer">
+    <a href="#"><span class="glyphicon glyphicon-eject" style = "font-size:30px;" aria-hidden="true">
+    </span></a></div>
+    
+</body>
+</html>
